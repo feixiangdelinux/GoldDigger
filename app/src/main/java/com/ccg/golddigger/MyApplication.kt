@@ -1,6 +1,7 @@
 package com.ccg.golddigger
 
 import android.app.Application
+import com.tencent.mmkv.MMKV
 import timber.log.Timber.*
 import timber.log.Timber.Forest.plant
 
@@ -16,5 +17,6 @@ class MyApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         plant(DebugTree())
+        MMKV.initialize(this)
     }
 }

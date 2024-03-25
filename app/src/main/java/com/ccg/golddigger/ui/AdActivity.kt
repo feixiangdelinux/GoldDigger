@@ -3,12 +3,19 @@ package com.ccg.golddigger.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -32,16 +39,17 @@ import androidx.compose.ui.unit.sp
 import com.ccg.golddigger.bean.NumberBean
 import com.ccg.golddigger.ui.theme.GoldDiggerTheme
 import com.ccg.golddigger.utils.TimeUtil
+import com.tencent.mmkv.MMKV
+import timber.log.Timber
 
 /**
  * @author : C4_雍和
- * 描述 :AbActivity
+ * 描述 :
  * 主要功能 :
  * 维护人员 : C4_雍和
- * date : 2024/3/20 10:16
- * RegisterActivity
+ * date : 2024/3/25 11:04
  */
-class AaActivity : ComponentActivity() {
+class AdActivity : ComponentActivity() {
     private val context = this
     private val expirationTime = TimeUtil.getExpirationTime()
     val finalList: MutableList<NumberBean> = ArrayList()
@@ -55,180 +63,140 @@ class AaActivity : ComponentActivity() {
             }
         }
     }
-    fun arrangeTwo(mList: MutableList<Int>, tag: Int) {
 
-        if (tag == 1) {
-            mList.add(3)
-            mList.add(4)
-            mList.add(8)
-            mList.add(9)
-        } else if (tag == 2) {
-            mList.add(4)
-            mList.add(5)
-            mList.add(9)
-            mList.add(10)
-        } else if (tag == 3) {
-            mList.add(1)
-            mList.add(5)
-            mList.add(6)
-            mList.add(10)
-        } else if (tag == 4) {
-            mList.add(1)
-            mList.add(2)
-            mList.add(6)
-            mList.add(7)
-        } else if (tag == 5) {
-            mList.add(2)
-            mList.add(3)
-            mList.add(7)
-            mList.add(8)
-        } else if (tag == 6) {
-            mList.add(3)
-            mList.add(4)
-            mList.add(8)
-            mList.add(9)
-        } else if (tag == 7) {
-            mList.add(4)
-            mList.add(5)
-            mList.add(9)
-            mList.add(10)
-        } else if (tag == 8) {
-            mList.add(1)
-            mList.add(5)
-            mList.add(6)
-            mList.add(10)
-        } else if (tag == 9) {
-            mList.add(1)
-            mList.add(2)
-            mList.add(6)
-            mList.add(7)
-        } else {
-            mList.add(2)
-            mList.add(3)
-            mList.add(7)
-            mList.add(8)
-        }
-    }
+
+
     /**
      *
      * @param mList MutableList<Int>
      * @param tag Int
      */
     fun arrangeOne(mList: MutableList<Int>, tag: Int) {
-        /**
-         * 1对应    34689
-         * 2对应    45790
-         * 3对应    01568
-         * 4对应    12679
-         * 5对应     23780
-         * 6对应     13489
-         * 7对应     24590
-         * 8对应     13560
-         * 9对应     12467
-         * 0对应      23578
-         */
+
         if (tag == 1) {
-            mList.add(3)
-            mList.add(4)
-            mList.add(8)
-            mList.add(9)
+            MMKV.defaultMMKV().decodeString("Ad1")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         } else if (tag == 2) {
-            mList.add(4)
-            mList.add(5)
-            mList.add(9)
-            mList.add(10)
+            MMKV.defaultMMKV().decodeString("Ad2")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         } else if (tag == 3) {
-            mList.add(1)
-            mList.add(5)
-            mList.add(6)
-            mList.add(10)
+            MMKV.defaultMMKV().decodeString("Ad3")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         } else if (tag == 4) {
-            mList.add(1)
-            mList.add(2)
-            mList.add(6)
-            mList.add(7)
+            MMKV.defaultMMKV().decodeString("Ad4")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         } else if (tag == 5) {
-            mList.add(2)
-            mList.add(3)
-            mList.add(7)
-            mList.add(8)
+            MMKV.defaultMMKV().decodeString("Ad5")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         } else if (tag == 6) {
-            mList.add(3)
-            mList.add(4)
-            mList.add(8)
-            mList.add(9)
+            MMKV.defaultMMKV().decodeString("Ad6")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         } else if (tag == 7) {
-            mList.add(4)
-            mList.add(5)
-            mList.add(9)
-            mList.add(10)
+            MMKV.defaultMMKV().decodeString("Ad7")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         } else if (tag == 8) {
-            mList.add(1)
-            mList.add(5)
-            mList.add(6)
-            mList.add(10)
+            MMKV.defaultMMKV().decodeString("Ad8")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         } else if (tag == 9) {
-            mList.add(1)
-            mList.add(2)
-            mList.add(6)
-            mList.add(7)
+            MMKV.defaultMMKV().decodeString("Ad9")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         } else {
-            mList.add(2)
-            mList.add(3)
-            mList.add(7)
-            mList.add(8)
+            MMKV.defaultMMKV().decodeString("Ad0")?.forEach {
+                mList.add(it.toString().toInt())
+            }
         }
     }
 
     @Composable
     fun LoadAaUI() {
-        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-            var mStr1 by remember { mutableStateOf("") }
-            var mStr2 = remember { mutableStateOf(AnnotatedString.Builder().toAnnotatedString()) }
-            Spacer(modifier = Modifier.height(20.dp))
-            Row() {
-                TextField(value = mStr1, onValueChange = {
-                    if (it.length <= 5) {
-                        mStr1 = it
-                    }
-                    val mList: MutableList<Int> = ArrayList()
-
-                    if (it.length in 3..5) {
-                        val charArray = it.toCharArray()
-                        if (mList.isNotEmpty()) {
-                            mList.clear()
-                        }
-                        if (finalList.isNotEmpty()) {
-                            finalList.clear()
-                        }
-                        charArray.forEach {
-                            val aaaa = it.toString().toInt()
-                            arrangeOne(mList, aaaa)
-                        }
-                        mList.sort()
-                        setTextContent(mStr2, mList)
-                    } else {
-                        if (mList.isNotEmpty()) {
-                            mList.clear()
-                        }
-                        if (finalList.isNotEmpty()) {
-                            finalList.clear()
-                        }
-                        if (it.length <= 2) {
-                            val tempStr1 = AnnotatedString.Builder()
-                            mStr2.value = tempStr1.toAnnotatedString()
-                        }
-                    }
-                }, modifier = Modifier.width(200.dp), placeholder = {
-                    Text(text = "请输入三到五位数")
-                }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
-                Spacer(modifier = Modifier.width(10.dp))
-                Button(onClick = { }) {
-                    Text(text = "清空")
-                }
+        var mStr1 by remember { mutableStateOf("") }
+        val mStr2 = remember { mutableStateOf(AnnotatedString.Builder().toAnnotatedString()) }
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            item {
+                Spacer(modifier = Modifier.height(20.dp))
             }
-            Text(text = mStr2.value)
+            item {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                    TextField(value = mStr1, onValueChange = {
+                        if (it.length <= 5) {
+                            mStr1 = it
+                        }
+                        val mList: MutableList<Int> = ArrayList()
+                        if (it.length in 3..5) {
+                            val charArray = it.toCharArray()
+                            if (mList.isNotEmpty()) {
+                                mList.clear()
+                            }
+                            if (finalList.isNotEmpty()) {
+                                finalList.clear()
+                            }
+                            charArray.forEach {
+                                val aaaa = it.toString().toInt()
+                                arrangeOne(mList, aaaa)
+                            }
+                            mList.sort()
+                            setTextContent(mStr2, mList)
+                        } else {
+                            if (mList.isNotEmpty()) {
+                                mList.clear()
+                            }
+                            if (finalList.isNotEmpty()) {
+                                finalList.clear()
+                            }
+                            if (it.length <= 2) {
+                                val tempStr1 = AnnotatedString.Builder()
+                                mStr2.value = tempStr1.toAnnotatedString()
+                            }
+                        }
+                    }, modifier = Modifier.width(200.dp), placeholder = {
+                        Text(text = "请输入三到五位数")
+                    }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Button(onClick = { }) {
+                        Text(text = "清空")
+                    }
+                }
+
+            }
+            item {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(), contentAlignment = Alignment.TopCenter) {
+                    Text(text = mStr2.value, modifier = Modifier.wrapContentSize())
+                }
+                Text(text = "输入对应的值:")
+            }
+
+
+            items(count = 10) { index ->
+                var mStrOne by remember { mutableStateOf("") }
+                MMKV.defaultMMKV().decodeString("Ad${index}")?.let {
+                    mStrOne = it
+                }
+                Row(modifier = Modifier
+                    .wrapContentWidth()
+                    .wrapContentHeight(), verticalAlignment = Alignment.CenterVertically) {
+                    Text(text = "${index}对应: ")
+                    TextField(value = mStrOne, onValueChange = {
+                        mStrOne = it
+                        MMKV.defaultMMKV().encode("Ad${index}", it)
+                    }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
+                }
+
+            }
+
         }
+
+
     }
 
     fun setTextContent(mStr2: MutableState<AnnotatedString>, mList: MutableList<Int>) {

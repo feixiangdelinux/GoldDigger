@@ -63,7 +63,7 @@ dependencies {
     implementation(libs.utilcodex)
     implementation(libs.adapter.rxjava3)
     implementation(libs.timber)
-    implementation(libs.compose.webview)
+    implementation(libs.mmkv)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
