@@ -6,6 +6,7 @@ import com.ccg.golddigger.ui.AaActivity
 import com.ccg.golddigger.ui.AbActivity
 import com.ccg.golddigger.ui.AcActivity
 import com.ccg.golddigger.ui.AdActivity
+import com.ccg.golddigger.ui.AeActivity
 
 /**
  * @author : C4_雍和
@@ -43,5 +44,12 @@ object NavigationUtils {
      */
     fun goAlgorithmFourActivity(context: Activity) {
         context.startActivity(Intent(context, AdActivity::class.java))
+    }
+    /**
+     * 跳转到算法5界面
+     * @param context Activity
+     */
+    fun goAlgorithmFiveActivity(context: Activity) {
+        context.startActivity(Intent(context, AeActivity::class.java))
     }
 }

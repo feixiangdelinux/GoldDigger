@@ -33,25 +33,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ccg.golddigger.bean.NumberBean
 import com.ccg.golddigger.ui.theme.GoldDiggerTheme
-import com.ccg.golddigger.utils.TimeUtil
 import com.tencent.mmkv.MMKV
 import timber.log.Timber
-
+import timber.log.Timber.Forest.tag
 
 /**
  * @author : C4_雍和
- * 描述 :AeActivity
+ * 描述 :
  * 主要功能 :
  * 维护人员 : C4_雍和
- * date : 2024/3/21 16:52
+ * date : 2024/3/25 14:58
  */
-class AcActivity : ComponentActivity() {
+class AeActivity : ComponentActivity() {
     private val context = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +65,8 @@ class AcActivity : ComponentActivity() {
     fun LoadAcUI() {
         var mStr1 by remember { mutableStateOf("") }
         val mStr2 = remember { mutableStateOf(AnnotatedString.Builder().toAnnotatedString()) }
-        val mStr3 = remember { mutableStateOf(AnnotatedString.Builder().toAnnotatedString()) }
-        val mStr4 = remember { mutableStateListOf<MutableList<NumberBean>>() }
-        val mStr5 = remember { mutableStateListOf<MutableList<NumberBean>>() }
+        val mStr4 = remember { mutableStateListOf<NumberBean>() }
+        val mStr5 = remember { mutableStateListOf<NumberBean>() }
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
                 Spacer(modifier = Modifier.height(20.dp))
@@ -105,11 +101,13 @@ class AcActivity : ComponentActivity() {
                                 i += 5
                                 inputList.add(aa)
                             }
-                            val inputLaaaist: MutableList<MutableList<NumberBean>> = ArrayList()
+                            val inputLaaaist: MutableList<Int> = ArrayList()
                             inputList.forEach { aa ->
-                                inputLaaaist.add(sdfsdsd(aa))
+                                Timber.e("A: "+sdfsdsd(aa))
+                                inputLaaaist.addAll(sdfsdsd(aa))
                             }
-                            mStr4.addAll(inputLaaaist)
+                            mStr4.clear()
+                            mStr4.addAll(setTextContentTwo(inputLaaaist))
 
                             val inputListTwo: MutableList<MutableList<Int>> = ArrayList()
                             val aa: MutableList<Int> = ArrayList()
@@ -123,12 +121,14 @@ class AcActivity : ComponentActivity() {
                                 }
                                 inputListTwo.add(bb)
                             }
-
-                            val inputLaaaistTwo: MutableList<MutableList<NumberBean>> = ArrayList()
-                            inputListTwo.forEach { aa ->
-                                inputLaaaistTwo.add(sdfsdsd(aa))
+                            val inputLaaaistTwo: MutableList<Int> = ArrayList()
+                            inputListTwo.forEach { cc ->
+//                                Timber.e(""+cc)
+                                Timber.e("B: "+sdfsdsd(cc))
+                                inputLaaaistTwo.addAll(sdfsdsd(cc))
                             }
-                            mStr5.addAll(inputLaaaistTwo)
+                            mStr5.clear()
+                            mStr5.addAll(setTextContentTwo(inputLaaaistTwo))
                         }
                     }, modifier = Modifier.width(200.dp), placeholder = {
                         Text(text = "请输入25位数")
@@ -147,54 +147,27 @@ class AcActivity : ComponentActivity() {
                 }
             }
             item {
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(), contentAlignment = Alignment.TopCenter) {
-                    Text(text = mStr3.value, modifier = Modifier.wrapContentSize())
-                }
-            }
-            item {
                 Row(modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(horizontal = 5.dp)) {
-                    mStr4.forEachIndexed { index, numberBeans ->
-                        Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text(text = "横${index + 1}")
-                            numberBeans.forEach {
-                                Text(text = "" + it.tag + "  " + it.num + "次",color= Color.Red)
-                            }
+                    .wrapContentHeight(), horizontalArrangement = Arrangement.Center) {
+                    Column (modifier = Modifier.weight(1f),horizontalAlignment = Alignment.CenterHorizontally){
+                        Text(text = "横")
+                        mStr4.forEach {
+                            Text(text = "" + it.tag + "  " + it.num + "次", color = Color.Red)
                         }
                     }
-
-                }
-            }
-            item {
-                Spacer(modifier = Modifier.height(20.dp))
-            }
-
-            item {
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(horizontal = 5.dp)) {
-                    mStr5.forEachIndexed { index, numberBeans ->
-                        Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text(text = "竖${index + 1}")
-                            numberBeans.forEach {
-                                Text(text = "" + it.tag + "  " + it.num + "次",color= Color.Red)
-                            }
+                    Column (modifier = Modifier.weight(1f),horizontalAlignment = Alignment.CenterHorizontally){
+                        Text(text = "竖")
+                        mStr5.forEach {
+                            Text(text = "" + it.tag + "  " + it.num + "次", color = Color.Red)
                         }
                     }
-
                 }
             }
-
 
             item {
                 Spacer(modifier = Modifier.height(20.dp))
             }
-
             items(count = 10) { index ->
                 var mStrOne by remember { mutableStateOf("") }
                 MMKV.defaultMMKV().decodeString("Ad${index}")?.let {
@@ -215,7 +188,7 @@ class AcActivity : ComponentActivity() {
     }
 
 
-    fun sdfsdsd(aa: MutableList<Int>): MutableList<NumberBean> {
+    fun sdfsdsd(aa: MutableList<Int>): MutableList<Int> {
         val mList: MutableList<Int> = ArrayList()
         aa.forEach {
             arrangeOne(mList, it)
@@ -273,7 +246,7 @@ class AcActivity : ComponentActivity() {
         }
     }
 
-    fun setTextContent(mList: MutableList<Int>): MutableList<NumberBean> {
+    fun setTextContentTwo(mList: MutableList<Int>): MutableList<NumberBean> {
         val finalList: MutableList<NumberBean> = ArrayList()
         val threeList: MutableList<NumberBean> = ArrayList()
         val fourList: MutableList<NumberBean> = ArrayList()
@@ -310,25 +283,56 @@ class AcActivity : ComponentActivity() {
             }
         }
         if (eightList.isNotEmpty()) {
+            eightList.sortWith { o1, o2 -> o2.tag.compareTo(o1.tag) }
             aaList.addAll(eightList)
         }
         if (sevenList.isNotEmpty()) {
+            sevenList.sortWith { o1, o2 -> o2.tag.compareTo(o1.tag) }
             aaList.addAll(sevenList)
         }
         if (sixList.isNotEmpty()) {
+            sixList.sortWith { o1, o2 -> o2.tag.compareTo(o1.tag) }
             aaList.addAll(sixList)
         }
         if (fiveList.isNotEmpty()) {
+            fiveList.sortWith { o1, o2 -> o2.tag.compareTo(o1.tag) }
             aaList.addAll(fiveList)
         }
         if (fourList.isNotEmpty()) {
+            fourList.sortWith { o1, o2 -> o2.tag.compareTo(o1.tag) }
             aaList.addAll(fourList)
         }
         if (threeList.isNotEmpty()) {
+            threeList.sortWith { o1, o2 -> o2.tag.compareTo(o1.tag) }
             aaList.addAll(threeList)
         }
         return aaList
     }
+
+    fun setTextContent(mList: MutableList<Int>): MutableList<Int> {
+        val finalList: MutableList<NumberBean> = ArrayList()
+        val bbList: MutableList<Int> = ArrayList()
+        mList.forEach { number ->
+            var isHave = false
+            finalList.forEach {
+                if (it.tag == number) {
+                    it.num += 1
+                    isHave = true
+                }
+            }
+            if (!isHave) {
+                finalList.add(NumberBean(number, 1))
+            }
+        }
+        finalList.forEach {
+            if (it.num >= 3) {
+                bbList.add(0, it.tag)
+            }
+        }
+        return bbList
+    }
+
+
 }
 
 

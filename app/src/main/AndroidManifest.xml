@@ -30,6 +30,7 @@
         <activity android:name=".ui.AbActivity" />
         <activity android:name=".ui.AcActivity" />
         <activity android:name=".ui.AdActivity" />
+        <activity android:name=".ui.AeActivity" />
     </application>
 
 </manifest>

@@ -59,6 +59,11 @@ class MainActivity : ComponentActivity() {
             }) {
                 Text(text = "算法4")
             }
+            Button(onClick = {
+                NavigationUtils.goAlgorithmFiveActivity(context)
+            }) {
+                Text(text = "算法5")
+            }
         }
     }
 }
